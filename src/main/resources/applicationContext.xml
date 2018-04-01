@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:conxtet="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop   http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+>
+    <!--启用组件扫描-->
+    <conxtet:component-scan base-package="com.shaw.mydaily"/>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations"> <!-- PropertyPlaceholderConfigurer类中有个locations属性，接收的是一个数组，即我们可以在下面配好多个properties文件 -->
+            <array>
+                <value>classpath:dataSource.properties</value>
+            </array>
+        </property>
+    </bean>
+
+    <!--<bean id="dog" class="com.shaw.mydaily.entity.Dog"/>-->
+
+    <bean id="animal" class="com.shaw.mydaily.entity.Animal">
+        <constructor-arg ref="dog"/>
+    </bean>
+
+
+    <bean id="cat" class="com.shaw.mydaily.entity.Cat">
+        <property name="tiger" ref="tiger"></property>
+    </bean>
+
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driverClass}"></property>
+        <property name="jdbcUrl" value="${jdbc.url}"></property>
+        <property name="user" value="${jdbc.user}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+
+
+    <!--<aop:config>-->
+        <!--<aop:pointcut id=""-->
+                      <!--expression=-->
+                              <!--"execution(com.nico.myBlog.service*)"/>-->
+
+        <!--<aop:aspect id="logAspect" ref="">-->
+            <!--<aop:around pointcut-ref="loggerCutpoint" method="log"/>-->
+        <!--</aop:aspect>-->
+    <!--</aop:config>-->
+
+</beans>
